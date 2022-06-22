@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <form action="{%url 'qna:create'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>제목: <input type="text" name="title"></p>
+        <p>사진: <input type="file" name="image"></p>
+        <p>내용: <textarea type="text" name="body" id="" cols="30" rows="10"></textarea></p>
+        <button type = "submit">제출</button>
+    </form>
+</section>
+{% endblock %}
