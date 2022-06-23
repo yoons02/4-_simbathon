@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'main',
     'qna',
+    'accounts',
 ]
 
 MIDDLEWARE = [
