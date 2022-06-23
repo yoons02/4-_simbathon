@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('qna/', include('qna.urls')),
+    path('accounts/',include('accounts.urls')),
+
 ]
