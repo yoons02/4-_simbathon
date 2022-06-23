@@ -1,0 +1,21 @@
+    <li class="nav-item dropdown">
+      {% if user.is_authenticated %}
+      <!--로그인시 보이는 화면-->
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{user.username}}
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a></li>
+      </ul>
+      {% else %}
+      <!--로그아웃시 보이는 화면-->
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      로그인
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li><a class="dropdown-item" href="{% url 'accounts:login' %}">로그인</a></li>
+      <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">회원가입</a></li>
+      </ul>
+      {% endif %}
+      </li>
+  
