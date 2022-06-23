@@ -8,7 +8,7 @@ class Professor(models.Model):
     def __str__(self):
         return self.name
 
-#학과dfdfdfdfdf
+#학과
 class Department(models.Model):
     name = models.CharField(max_length=20)
 
