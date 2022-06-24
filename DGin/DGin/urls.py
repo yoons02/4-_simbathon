@@ -25,4 +25,4 @@ urlpatterns = [
     path('qna/', include('qna.urls')),
     path('accounts/',include('accounts.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
