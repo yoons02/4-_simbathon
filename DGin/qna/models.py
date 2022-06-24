@@ -19,7 +19,7 @@ class Department(models.Model):
 class Major(models.Model):
     name = models.CharField(max_length=20)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='majors')
 
     def __str__(self):
         return self.name
@@ -38,7 +38,7 @@ class Question(models.Model):
         return self.title
     
     def summary(self):
-        return self.body[:20]
+        return f"{self.body[:50]}..."
 
 #질문에 업로드하는 이미지(미완성)
 class QuestionImage(models.Model):
