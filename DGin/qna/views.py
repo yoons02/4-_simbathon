@@ -150,3 +150,14 @@ def delete_answer(request , question_id, answer_id):
     delete_answer = Answer.objects.get(id = answer_id)
     delete_answer.delete()
     return redirect('qna:detail', target_question.id)
+
+def likes(request, id):
+    if request.user.is_authenticated:
+        question = get_object_or_404(Question, pk=id)
+
+        if question.like_users.filter(pk=request.user.pk).exists():
+            question.like_users.remove(request.user)
+        else:
+            question.like_users.add(request.user)
+        return redirect('qna:detail', question.id)
+    return redirect('accouts:login')
