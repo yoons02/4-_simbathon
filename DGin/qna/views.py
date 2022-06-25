@@ -2,6 +2,7 @@ from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Professor, Department, Major, Question, Answer, Profile
 from django.utils import timezone
+from django.db.models import Q
 # Create your views here.
 
 def majorList(request):
@@ -161,3 +162,18 @@ def likes(request, id):
             question.like_users.add(request.user)
         return redirect('qna:detail', question.id)
     return redirect('accouts:login')
+
+def search(request):
+    question_list = Question.objects.all()
+    search = request.GET.get('search', '')
+    if search:
+        question_list = question_list.filter(
+        Q(title__icontains = search) | #제목
+        Q(body__icontains = search) | #내용
+        Q(writer__username__icontains = search) | #글쓴이
+        Q(major__name__icontains = search) | #전공
+        Q(major__professor__name__icontains = search) #교수
+        )
+    return render(request, 'qna/searchList.html', {
+        'questions':question_list, 'search':search
+        })

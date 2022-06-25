@@ -8,7 +8,16 @@
 {% block content %}
 <h1>landing page</h1>
 <hr>
-
+<!-- 프론트엔드분들 검색창 다른 html파일이나 nav바에 포함시킬때 여기 form 그대로 가져다 쓰시면 됩니다-->-->
+<form action="{% url 'qna:search' %}" method="GET">
+    {% csrf_token %}
+    <div id="search">
+        <input name="search" type="text">
+        <button class="button" type="submit">검색</button>
+    </div>
+</form>
+<!-- 여기까지 -->
+<hr>
 <h2>추천수 높은 질문</h2>
 {% for q in recommended_questions %}
     <div class="question">
