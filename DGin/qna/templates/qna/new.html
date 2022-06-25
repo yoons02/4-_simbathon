@@ -11,6 +11,14 @@
         <p>제목: <input type="text" name="title"></p>
         <p>사진: <input type="file" name="image"></p>
         <p>내용: <textarea type="text" name="body" id="" cols="30" rows="10"></textarea></p>
+        <p>전공: 
+            <select name="major">
+                <option value="nothing">해당 없음</option>
+                {% for m in majors %}
+                <option value="{{ m }}">{{ m }}</option>
+                {% endfor %}
+            </select>
+        </p>
         <button type = "submit">제출</button>
     </form>
 </section>

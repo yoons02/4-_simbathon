@@ -33,5 +33,6 @@ urlpatterns = [
     path('<str:question_id>/delete_answer/<str:answer_id>', delete_answer, name="delete_answer"),
 
     path('<int:id>/likes/', likes, name="likes"),
+    path('<int:question_id>/select/<int:answer_id>', select, name="select"),
     path('search/', search, name='search'),
 ]

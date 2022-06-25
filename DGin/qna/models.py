@@ -54,11 +54,12 @@ class Answer(models.Model):
     content = models.TextField()
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField()
+    image = models.ImageField(upload_to = "answer/", blank=True, null=True)
     selection = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.content
+        return self.content[:20]
 
 #개인프로필, auth의 User를 일대일 필드로 가짐
 class Profile(models.Model):
