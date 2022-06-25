@@ -33,8 +33,8 @@ class Question(models.Model):
     body = models.TextField()
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to = "question/", blank=True, null=True)
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_questions')
-
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='like_questions')
+    
     def __str__(self):
         return self.title
     

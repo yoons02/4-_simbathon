@@ -5,7 +5,10 @@ from django.utils import timezone
 # Create your views here.
 
 def landing(request):
-    recommended_questions = Question.objects.all().order_by('-like_users')
+    recommended_questions = Question.objects.all()
+    recommended_questions = sorted(recommended_questions, key=lambda x: -x.like_users.count())
+    for q in recommended_questions:
+        print(q.like_users.count())
     latest_questions = Question.objects.all().order_by('-pub_date')
     unsolved_questions = []
     solved_questions = []
