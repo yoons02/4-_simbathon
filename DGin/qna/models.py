@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 #교수
 class Professor(models.Model):
@@ -32,13 +33,16 @@ class Question(models.Model):
     body = models.TextField()
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to = "question/", blank=True, null=True)
-    like = models.IntegerField(default=0)
-
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='like_questions')
+    
     def __str__(self):
         return self.title
     
     def summary(self):
         return f"{self.body[:50]}..."
+
+    def like_counts(self):
+        return self.like_users.count()
 
 #질문에 업로드하는 이미지(미완성)
 class QuestionImage(models.Model):
@@ -50,11 +54,12 @@ class Answer(models.Model):
     content = models.TextField()
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField()
+    image = models.ImageField(upload_to = "answer/", blank=True, null=True)
     selection = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.content
+        return self.content[:20]
 
 #개인프로필, auth의 User를 일대일 필드로 가짐
 class Profile(models.Model):
