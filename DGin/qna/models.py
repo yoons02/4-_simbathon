@@ -69,6 +69,7 @@ class Answer(models.Model):
 class Profile(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = "image/", blank=True, null=True)
     department = models.ManyToManyField(Department)
     introduction = models.TextField(max_length=300, blank=True, null=True)
     bookmark = models.ManyToManyField(Question)
