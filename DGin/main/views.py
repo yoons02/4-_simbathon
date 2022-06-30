@@ -7,8 +7,6 @@ from django.utils import timezone
 def landing(request):
     recommended_questions = Question.objects.all()
     recommended_questions = sorted(recommended_questions, key=lambda x: -x.like_users.count())
-    for q in recommended_questions:
-        print(q.like_users.count())
     latest_questions = Question.objects.all().order_by('-pub_date')
     unsolved_questions = []
     solved_questions = []
@@ -20,9 +18,13 @@ def landing(request):
             if a.selection == True:
                 solved_questions.append(q)
                 unsolved_questions.remove(q)
-    return render(request, 'landing.html', {
-        'recommended_questions':recommended_questions[:4],
-        'latest_questions':latest_questions[:4],
-        'unsolved_questions':unsolved_questions[:4],
-        'solved_questions':solved_questions[:4],
+    return render(request, 'main.html', {
+        'recommended_questions1':recommended_questions[:3],
+        'recommended_questions2':recommended_questions[3:6],
+        'latest_questions1':latest_questions[:3],
+        'latest_questions2':latest_questions[3:6],
+        'unsolved_questions1':unsolved_questions[:3],
+        'unsolved_questions2':unsolved_questions[3:6],
+        'solved_questions1':solved_questions[:3],
+        'solved_questions2':solved_questions[3:6],
     })

@@ -16,6 +16,7 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+
 #전공(수업)
 class Major(models.Model):
     name = models.CharField(max_length=20)
@@ -38,8 +39,11 @@ class Question(models.Model):
     def __str__(self):
         return self.title
     
-    def summary(self):
-        return f"{self.body[:50]}..."
+    def summary_short(self):
+        return f"{self.body[:40]}..."
+
+    def summary_long(self):
+        return f"{self.body[:240]}..."
 
     def like_counts(self):
         return self.like_users.count()
@@ -68,6 +72,30 @@ class Profile(models.Model):
     department = models.ManyToManyField(Department)
     introduction = models.TextField(max_length=300, blank=True, null=True)
     bookmark = models.ManyToManyField(Question)
+
+    FRESHMAN = '1학년'
+    SOPHOMORE = '2학년'
+    JUNIOR = '3학년'
+    SENIOR = '4학년'
+    POSTGRAD = '대학원생'
+    GRADUATED = '졸업생'
+    YEAR_IN_SCHOOL_CHOICES = [
+        (FRESHMAN, '1학년'),
+        (SOPHOMORE, '2학년'),
+        (JUNIOR, '3학년'),
+        (SENIOR, '4학년'),
+        (POSTGRAD, '대학원생'),
+        (GRADUATED, '졸업생'),
+    ]
+    year_in_school = models.CharField(
+        max_length=10,
+        choices=YEAR_IN_SCHOOL_CHOICES,
+        default=FRESHMAN,
+    )
+
+
+    def is_upperclass(self):
+        return self.year_in_school in (self.JUNIOR, self.SENIOR)
 
     def __str__(self):
         return self.name
